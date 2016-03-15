@@ -1,0 +1,23 @@
+{
+  "name": "pjn-lab1",
+  "version": "1.0.0",
+  "description": "Fitting sentence to language using n-grams.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sin6pi7/pjn.git"
+  },
+  "keywords": [
+    "language",
+    "processing"
+  ],
+  "author": "sin6pi7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sin6pi7/pjn/issues"
+  },
+  "homepage": "https://github.com/sin6pi7/pjn#readme"
+}
