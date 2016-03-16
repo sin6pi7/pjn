@@ -3,9 +3,7 @@ module.exports = cosinesMetric;
 function cosinesMetric(vec1, vec2) {
   const num = Object
     .keys(vec1)
-    .reduce((sum, key) => {
-      return sum + (vec1[key] * (vec2[key] || 0));
-    }, 0);
+    .reduce((sum, key) => sum + (vec1[key] * (vec2[key] || 0)), 0);
 
   const denum = euclidNorm(vec1) * euclidNorm(vec2);
 

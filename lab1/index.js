@@ -26,6 +26,6 @@ for (let n = minN; n <= maxN; n++) {
       console.log(`Language\tDistance`);
       solution.metrics.forEach(metric => console.log(`${metric.language.name}\t\t${metric.value}`));
       console.log(`Language: ${solution.closest.language.name}.`);
-    }
+    };
   })(n));
 }
