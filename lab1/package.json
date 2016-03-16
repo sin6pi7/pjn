@@ -30,5 +30,8 @@
   "jscsConfig": {
     "preset": "airbnb",
     "requireTrailingComma": false
+  },
+  "dependencies": {
+    "lodash": "^4.6.1"
   }
 }
