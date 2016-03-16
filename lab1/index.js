@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 const LANGUAGES = require('./languages');
 const cosinesMetric = require('./metrics/cosines');
 const solve = require('./solver');
@@ -16,7 +18,9 @@ if (!sentence) {
 console.log(`Analyzing sentence:\n"${sentence}"`);
 
 for (let n = minN; n <= maxN; n++) {
-  solve(LANGUAGES, n, sentence, cosinesMetric).then(((n) => {
+  const languages = _.cloneDeep(LANGUAGES);
+
+  solve(languages, n, sentence, cosinesMetric).then(((n) => {
     return (solution) => {
       console.log(`=== ${n}-GRAMS ===`);
       console.log(`Language\tDistance`);

@@ -24,7 +24,7 @@ function mergeDicts(dicts) {
     Object
       .keys(dict)
       .forEach(gram => {
-        finalDict[gram] = (finalDict[gram] || 0) + 1;
+        finalDict[gram] = (finalDict[gram] || 0) + dict[gram];
       });
   });
 
