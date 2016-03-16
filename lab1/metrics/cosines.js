@@ -1,18 +1,18 @@
 module.exports = cosinesMetric;
 
-function cosinesMetric(short, long) {
+function cosinesMetric(vec1, vec2) {
   const num = Object
-    .keys(short)
+    .keys(vec1)
     .reduce((sum, key) => {
-      return sum + (short[key] * (long[key] || 0));
+      return sum + (vec1[key] * (vec2[key] || 0));
     }, 0);
 
-  const denum = norm(short) * norm(long);
+  const denum = euclidNorm(vec1) * euclidNorm(vec2);
 
   return 1 - (num / denum);
 }
 
-function norm(vector) {
+function euclidNorm(vector) {
   const product = Object
     .keys(vector)
     .reduce((result, key) => {
