@@ -29,7 +29,9 @@
   },
   "jscsConfig": {
     "preset": "airbnb",
-    "requireTrailingComma": false
+    "requireTrailingComma": false,
+    "disallowQuotedKeysInObjects": false,
+    "requireShorthandArrowFunctions": false
   },
   "dependencies": {
     "lodash": "^4.6.1"
