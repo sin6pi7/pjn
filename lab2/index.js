@@ -1,11 +1,14 @@
+const readline = require('readline');
 const LD = require('./ld');
+const SEPARATOR = ' ';
 
-const word1 = process.argv[2];
-const word2 = process.argv[3];
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-if (!word1 || !word2) {
-  console.error('Specify words to compare.');
-  process.exit(1);
-}
-
-console.log(`Levenstein distnace between "${word1}" and "${word2}" is ${LD(word1, word2)}`);
+rl.question(`Type two words to compare (separatd with "${SEPARATOR}"):`, (answer) => {
+  const words = answer.split(SEPARATOR);
+  rl.close();
+  console.log(`Levenstein distnace between "${words[0]}" and "${words[1]}" is ${LD(words[0], words[1])}`);
+});
