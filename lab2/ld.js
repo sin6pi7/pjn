@@ -30,8 +30,11 @@ const MISTAKES = {
 
 const MISTAKE_VALUES = {
   DIACRITIC: 0.25,
-  MISSPELLING: 0.5,
-  CZECH: 0.5
+  MISSPELLING: {
+    SINGLE: 0.5,
+    DOUBLE: -0.5
+  },
+  CZECH: -0.5
 };
 
 module.exports = (w1, w2) => {
@@ -69,15 +72,20 @@ function signDistance(w1, i1, w2, i2) {
 
   if (
     MISTAKES.MISSPELLINGS[s11] === s21 ||
-    MISTAKES.MISSPELLINGS[s21] === s11 ||
-    MISTAKES.MISSPELLINGS[`${s11}${s12}`] === s21 ||
-    MISTAKES.MISSPELLINGS[`${s21}${s22}`] === s11
+    MISTAKES.MISSPELLINGS[s21] === s11
   ) {
-    return MISTAKE_VALUES.MISSPELLING;
+    return MISTAKE_VALUES.MISSPELLING.SINGLE;
   }
 
   if (
-    s11 === s22 ||
+    MISTAKES.MISSPELLINGS[`${s11}${s12}`] === s21 ||
+    MISTAKES.MISSPELLINGS[`${s21}${s22}`] === s11
+  ) {
+    return MISTAKE_VALUES.MISSPELLING.DOUBLE;
+  }
+
+  if (
+    s11 === s22 &&
     s12 === s21
   ) {
     return MISTAKE_VALUES.CZECH;
