@@ -34,6 +34,7 @@
     "requireShorthandArrowFunctions": false
   },
   "dependencies": {
+    "iconv-lite": "^0.4.13",
     "lodash": "^4.6.1"
   }
 }
