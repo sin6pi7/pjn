@@ -64,6 +64,8 @@ const COSTS = {
   'rzsz': COST_VALUES.MISSPELLING.DOUBLE_DOUBLE
 };
 
+const distCache = {};
+
 module.exports = (w1, w2) => {
   return lev(w1, w1.length, w2, w2.length);
 };
@@ -98,12 +100,25 @@ function signsDistance(w1, i1, w2, i2) {
   const s21 = w2[i2];
   const s22 = w2[i2 + 1];
 
-  return (s11 === s21) ? COST_VALUES.EQUAL : (
-    COSTS[`${s11}${s21}`] ||
-    COSTS[`${s11}${s21}${s22}`] ||
-    COSTS[`${s21}${s11}${s12}`] ||
-    COSTS[`${s21}${s22}${s11}${s12}`] ||
-    ((s11 === s22 && s21 === s12) && COST_VALUES.CZECH) ||
-    COST_VALUES.COMPLETELY_DIFFERENT
-  );
+  const s11s12 = w1.slice(i1, i1 + 1);
+  const s21s22 = w2.slice(i2, i2 + 1);
+
+  const s11s12s21s22 = s11s12 + s21s22;
+
+  if (distCache[s11s12s21s22]) {
+    return distCache[s11s12s21s22];
+  }
+
+  distCache[s11s12s21s22] = (s11 === s21)
+    ? COST_VALUES.EQUAL
+    : (
+      COSTS[s11 + s21] ||
+      COSTS[s11 + s21s22] ||
+      COSTS[s21 + s11s12] ||
+      COSTS[s11s12s21s22] ||
+      ((s11 === s22 && s21 === s12) && COST_VALUES.CZECH) ||
+      COST_VALUES.COMPLETELY_DIFFERENT
+    );
+
+  return distCache[s11s12s21s22];
 }
