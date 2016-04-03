@@ -1,4 +1,4 @@
-const readFilePromise = require('./util').readFilePromise;
+const readFilePromise = require('./../util').readFilePromise;
 const buildDict = require('./build-dict');
 
 module.exports = processLanguage;
