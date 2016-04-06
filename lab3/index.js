@@ -46,27 +46,39 @@ Promise.all([
     rl.question(`Type a word: `, word => {
       rl.close();
 
+      const forms = iconvlite.decode(fs.readFileSync(FORMS_FILE_PATH), 'ISO-8859-2').split('\n');
+
+      console.log('Analyzing forms...');
+
       const start = Date.now();
-
-      const correction = Object
-        .keys(formProbs)
-        .reduce((best, form) => {
-          const prob = pcw(word, form);
-
-          if (prob < best.prob) {
-            return best;
+      const bests = forms
+        .map(form => {
+          return {
+            prob: pcw(word, form),
+            form: form
+          };
+        })
+        .sort((a, b) => {
+          if (a.prob > b.prob) {
+            return -1;
           }
 
-          console.log(`Current best: ${form} (probability: ${prob}).`);
-          return { prob: prob, form: form };
-        }, { form: '', prob: 0 });
+          if (a.prob < b.prob) {
+            return 1;
+          }
+
+          return 0;
+        });
+
+      const TOP_DISPLAYED = 10;
 
       console.log(`====`);
-      console.log(`Analyzed ${Object.keys(formProbs).length} forms.`);
-      console.log(`Best: ${correction.form}`);
-      console.log(`-- probability: ${correction.prob}`);
-      console.log(`-- time: ${Date.now() - start}ms.`);
-      console.log(`-- distance: ${ld(correction.form, word)}`);
+      console.log(`Analyzed ${forms.length} forms in ${Date.now() - start}ms.`);
+      console.log(`Top ${TOP_DISPLAYED} best`);
+      console.log(`Form\t\tLD\tPc\t\t\t\t\tPwc\t\t\tPcw`);
+      bests.slice(0, TOP_DISPLAYED).forEach(best => {
+        console.log(`${best.form}\t\t${ld(word, best.form)}\t${pc(best.form)}\t\t\t${pwc(word, best.form)}\t\t${best.prob}`);
+      });
       console.log(`Error probabilities:`);
       console.log(errProbs);
     });
@@ -86,6 +98,12 @@ function buildPcw(pwc, pc) {
 function buildPwc(probs) {
   return function pwc(w, c) {
     const dist = ld(w, c);
+
+    if (dist > 1) {
+      // bigger dist is not important
+      return 0;
+    }
+
     return probs[dist] || 0;
   };
 }
