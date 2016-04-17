@@ -1,0 +1,35 @@
+{
+  "name": "pjn-lab4",
+  "version": "1.0.0",
+  "description": "Clustering.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sin6pi7/pjn.git"
+  },
+  "keywords": [
+    "clustering"
+  ],
+  "author": "sin6pi7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sin6pi7/pjn/issues"
+  },
+  "homepage": "https://github.com/sin6pi7/pjn#readme",
+  "devDependencies": {
+    "jscs": "^2.11.0"
+  },
+  "jscsConfig": {
+    "preset": "airbnb",
+    "requireTrailingComma": false,
+    "disallowQuotedKeysInObjects": false,
+    "requireShorthandArrowFunctions": false
+  },
+  "dependencies": {
+    "lodash": "^4.11.1"
+  }
+}
